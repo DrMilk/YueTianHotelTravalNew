@@ -36,6 +36,7 @@ public class XuBannerViewpagerAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((View) object);
+        L.i(TAG,"============");
     }
 
     @Override
@@ -45,4 +46,5 @@ public class XuBannerViewpagerAdapter extends PagerAdapter {
         container.addView(list_img.get(position));
         return list_img.get(position);
     }
+
 }

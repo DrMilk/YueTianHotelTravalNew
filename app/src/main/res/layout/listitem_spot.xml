@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="106dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/category_selection_gridview_bg">
+        <ImageView
+            android:id="@+id/listitem_img"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@mipmap/ohd"/>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="vertical">
+           <TextView
+               android:id="@+id/listitem_title"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="故宫"/>
+           <TextView
+               android:id="@+id/listitem_context"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="景点介绍 绝大多数第一次来背景的旅游..."/>
+       </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
