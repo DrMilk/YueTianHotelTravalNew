@@ -38,9 +38,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".main.MainActivity"/>
-        <activity android:name=".login.SignActivity"/>
-        <activity android:name=".main.SpotDetailActivity"/>
+        <activity android:name=".main.MainActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <activity android:name=".login.SignActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"  />
+        <activity android:name=".main.SpotDetailActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity android:name=".travel.TravelDetailActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity android:name=".mine.ChangePasswordActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity android:name=".mine.CollectActivity"/>
+        <activity android:name=".mine.PersonaldActivity"/>
+        <activity android:name=".mine.SettingActivity"/>
+        <activity android:name=".mine.WeatherActivity"/>
     </application>
 
 </manifest>

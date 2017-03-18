@@ -25,8 +25,7 @@ public class XuBannerViewpagerAdapter extends PagerAdapter {
         this.list_img=list_img;
     }
     @Override
-    public int getCount() {
-        return 600;
+    public int getCount() {return 600;
     }
 
     @Override

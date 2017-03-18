@@ -16,6 +16,20 @@
             android:theme="@style/title_font" />
     </RelativeLayout>
     <LinearLayout
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <Spinner
+            android:id="@+id/spin_food"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:theme="@style/style_about"
+            android:layout_gravity="right"
+            android:entries="@array/food_array"/>
+    </LinearLayout>
+    <LinearLayout
         android:paddingTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="74dp">
@@ -33,8 +47,9 @@
             android:queryHint="Search" />
     </LinearLayout>
     <ListView
+        android:layout_marginTop="4dp"
+        android:id="@+id/activity_food_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
     </ListView>
 </LinearLayout>

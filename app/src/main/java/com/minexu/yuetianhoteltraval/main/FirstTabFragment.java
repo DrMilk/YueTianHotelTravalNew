@@ -33,9 +33,10 @@ public class FirstTabFragment extends Fragment{
     private List<ImageView> list_banner;
     private LinearLayout ll;
     private List<ImageView> list_banner_point;
-    private Thread banner_thread;
+    Thread banner_thread;
     private int num_baner=200;
     private ListView listview_spot;
+    private boolean thread_lock=true;
     private Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -49,6 +50,18 @@ public class FirstTabFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         mcontext=getActivity();
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onStart() {
+        thread_lock=true;
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        thread_lock=false;
+        super.onStop();
     }
 
     @Nullable
@@ -137,9 +150,11 @@ public class FirstTabFragment extends Fragment{
                 @Override
                 public void run() {
                     while (true){
-                        handler.sendEmptyMessage(1);
+                        if(thread_lock){
+                            handler.sendEmptyMessage(1);
+                        }
                         try {
-                            Thread.sleep(4000L);
+                            Thread.sleep(2000L);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
