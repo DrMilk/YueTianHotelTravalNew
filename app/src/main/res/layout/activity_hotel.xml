@@ -46,6 +46,7 @@
             android:queryHint="Search" />
     </LinearLayout>
     <ListView
+        android:divider="@null"
         android:layout_marginTop="4dp"
         android:id="@+id/activity_hotel_listview"
         android:layout_width="match_parent"

@@ -2,11 +2,13 @@ package com.minexu.yuetianhoteltraval.hotel;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.minexu.yuetianhoteltraval.R;
@@ -42,6 +44,13 @@ public class HotelFragment extends Fragment{
         list_hotel.add(new Hoteldata("如家酒店","上海市区免费接，8点人民广场准时出发",true,2034));
         HotelListAdatapter hotelListAdatapter=new HotelListAdatapter(mcontext,list_hotel);
         listView.setAdapter(hotelListAdatapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent it=new Intent(getActivity(),HotelDetailActivity.class);
+                startActivity(it);
+            }
+        });
         return view;
     }
 }

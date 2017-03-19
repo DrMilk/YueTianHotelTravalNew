@@ -9,7 +9,7 @@ public class Fooddata {
     private String context;
     private boolean pic_status;
     private int price;
-
+    private int specise;
     public Fooddata(String title, String context, boolean pic_status, int price) {
         this.title = title;
         this.context = context;
@@ -47,5 +47,13 @@ public class Fooddata {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public int getSpecise() {
+        return specise;
+    }
+
+    public void setSpecise(int specise) {
+        this.specise = specise;
     }
 }

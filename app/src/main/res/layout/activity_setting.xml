@@ -14,4 +14,30 @@
             android:layout_gravity="center"
             android:theme="@style/title_font" />
     </RelativeLayout>
+    <TextView
+        android:id="@+id/mine_anew"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:text="注销登录"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/pink_red_toobar"/>
+    <TextView
+        android:id="@+id/mine_register"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:text="退出"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/pink_red_toobar"/>
 </LinearLayout>
