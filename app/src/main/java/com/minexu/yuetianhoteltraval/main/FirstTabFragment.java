@@ -18,16 +18,26 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.minexu.yuetianhoteltraval.R;
+import com.minexu.yuetianhoteltraval.Utils.L;
+import com.minexu.yuetianhoteltraval.food.FoodFragment;
+import com.minexu.yuetianhoteltraval.hotel.HotelFragment;
+import com.minexu.yuetianhoteltraval.onlinedata.Alldata;
 import com.minexu.yuetianhoteltraval.onlinedata.Spotdata;
+import com.minexu.yuetianhoteltraval.travel.TravelFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.QueryListener;
 
 /**
  * Created by Administrator on 2017/3/17.
  */
 
 public class FirstTabFragment extends Fragment{
+    private String TAG="FirstTabFragment";
     private ViewPager banner_viewPager;
     private Context mcontext;
     private List<ImageView> list_banner;
@@ -37,6 +47,10 @@ public class FirstTabFragment extends Fragment{
     private int num_baner=200;
     private ListView listview_spot;
     private boolean thread_lock=true;
+    private ArrayList<Spotdata> list_spot;
+    private ArrayList<String> list_str;
+    private XuBannerViewpagerAdapter xubv;
+    private SpotListAdatapter spotListAdatapter;
     private Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -49,7 +63,42 @@ public class FirstTabFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         mcontext=getActivity();
+        list_str=getArguments().getStringArrayList("data");
+        L.i(TAG,list_str.size()+"长度");
+        if(list_str==null)
+            list_str=new ArrayList<>();
+        if(list_spot==null){
+            list_spot=new ArrayList<>();
+            for(int i=0;i<list_str.size();i++){
+                BmobQuery<Spotdata> query = new BmobQuery<Spotdata>();
+                query.getObject(list_str.get(i), new QueryListener<Spotdata>() {
+                    @Override
+                    public void done(Spotdata object, BmobException e) {
+                        if(e==null){
+                            list_spot.add(object);
+                            L.i(TAG,"all"+"下载成功");
+                        }else{
+                            L.i(TAG,"all"+"下载失败");
+                        }
+                        updataview();
+                    }
+
+                });
+            }
+        }
         super.onCreate(savedInstanceState);
+    }
+
+    private void updataview() {
+        if(list_spot.size()==list_str.size()){
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    L.i(TAG,"Gengxinle");
+                    spotListAdatapter.notifyDataSetChanged();
+                }
+            });
+        }
     }
 
     @Override
@@ -84,21 +133,21 @@ public class FirstTabFragment extends Fragment{
         list_banner.add(img2);
         list_banner.add(img3);
         list_banner.add(img4);
-        ArrayList<Spotdata> list_data=new ArrayList<>();
-        list_data.add(new Spotdata("故宫","景点介绍 绝大多数第一次来北京的旅游",true));
-        list_data.add(new Spotdata("上海迪士尼","欢迎来到一个前所未有的神奇世界",true));
-        list_data.add(new Spotdata("广州白水寨","白水寨风景名胜区位于增城区派潭镇",true));
-        list_data.add(new Spotdata("测试景点","这里是景点的详细说明在这里有",true));
-        SpotListAdatapter spotListAdatapter=new SpotListAdatapter(mcontext,list_data);
+        spotListAdatapter=new SpotListAdatapter(mcontext,list_spot);
         listview_spot.setAdapter(spotListAdatapter);
         listview_spot.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-              Intent it=new Intent(getActivity(),SpotDetailActivity.class);
+                Intent it=new Intent(getActivity(),SpotDetailActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putString("title",list_spot.get(position).getTitle());
+                bundle.putString("context",list_spot.get(position).getContext());
+                bundle.putString("id",list_spot.get(position).getObjectId());
+                it.putExtras(bundle);
                 getActivity().startActivity(it);
             }
         });
-        XuBannerViewpagerAdapter xubv=new XuBannerViewpagerAdapter(list_banner);
+        xubv=new XuBannerViewpagerAdapter(list_banner);
         banner_viewPager.setAdapter(xubv);
         banner_viewPager.setPageTransformer(false,new XuBannerPageTransformer(1));
         banner_viewPager.setCurrentItem(200);

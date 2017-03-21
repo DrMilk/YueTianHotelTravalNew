@@ -41,31 +41,37 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:gravity="center"
                 android:orientation="horizontal">
                 <TextView
+                    android:id="@+id/spot_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="简介:"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="故宫"/>
+                    android:text="故 宫"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
             </LinearLayout>
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:src="@mipmap/bg_202"/>
             <LinearLayout
+                android:padding="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="300dp">
-
+                android:layout_height="wrap_content">
                 <TextView
+                    android:id="@+id/spot_context"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textSize="16sp"
+                    android:textStyle="italic"
+                    android:textColor="@color/blue_black"
                     android:text="中国建筑的屋顶形式是丰富多彩的，在故宫建筑中，不同形式的屋顶就有10
                     种以上。以三大殿为例，屋顶各不相同。故宫建筑屋顶满铺各色琉璃瓦件。主要殿座以黄色
                     为主。绿色用于皇子居住区的建筑。其它蓝、紫、黑、翠以及孔雀绿、宝石蓝等五色缤纷的
@@ -79,6 +85,7 @@
                 android:orientation="vertical"
                 android:gravity="center">
                 <Button
+                    android:id="@+id/button_collect"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="加入收藏"/>

@@ -1,10 +1,12 @@
 package com.minexu.yuetianhoteltraval.onlinedata;
 
+import cn.bmob.v3.BmobObject;
+
 /**
  * Created by Administrator on 2017/3/19.
  */
 
-public class Remakdata {
+public class Remakdata extends BmobObject{
     private String context;
     private String id;
 

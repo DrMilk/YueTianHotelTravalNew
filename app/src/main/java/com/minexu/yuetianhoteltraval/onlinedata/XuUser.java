@@ -17,6 +17,7 @@ public class XuUser extends BmobUser{
     private String wechat;
     private String address;
     private String passwordshow;
+    private ArrayList<String> list_collect;
     public XuUser(){}
 
     public String getSex() {
@@ -73,5 +74,13 @@ public class XuUser extends BmobUser{
 
     public void setPasswordshow(String passwordshow) {
         this.passwordshow = passwordshow;
+    }
+
+    public ArrayList<String> getList_collect() {
+        return list_collect;
+    }
+
+    public void setList_collect(ArrayList<String> list_collect) {
+        this.list_collect = list_collect;
     }
 }

@@ -1,10 +1,12 @@
 package com.minexu.yuetianhoteltraval.onlinedata;
 
+import cn.bmob.v3.BmobObject;
+
 /**
  * Created by Administrator on 2017/3/17.
  */
 
-public class Spotdata {
+public class Spotdata extends BmobObject{
     private String title;
     private String context;
     private boolean pic_status;

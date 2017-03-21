@@ -1,6 +1,7 @@
 package com.minexu.yuetianhoteltraval.login;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import com.minexu.yuetianhoteltraval.R;
 import com.minexu.yuetianhoteltraval.Utils.L;
 import com.minexu.yuetianhoteltraval.Utils.StringLegalUtil;
+import com.minexu.yuetianhoteltraval.Utils.T;
+import com.minexu.yuetianhoteltraval.customView.XuProcessDialog;
 import com.minexu.yuetianhoteltraval.onlinedata.XuUser;
 
 import java.util.Date;
@@ -41,10 +44,13 @@ public class SignActivity extends Activity implements View.OnClickListener{
     private Button button_ok;
     private Button button_back;
     private String sex="男";
+    private XuProcessDialog xu_dialog;
+    private Context mcontext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign);
+        mcontext=this;
         initView();
     }
 
@@ -85,6 +91,7 @@ public class SignActivity extends Activity implements View.OnClickListener{
     }
     private void gosign() {
         boolean jundge_legal=true;
+        button_ok.setEnabled(false);
         String str_phonenum=edit_phonenum.getText().toString().trim();
         String str_password=edit_password.getText().toString().trim();
         String str_password_again=edit_password_again.getText().toString().trim();
@@ -132,6 +139,7 @@ public class SignActivity extends Activity implements View.OnClickListener{
             jundge_legal=false;
         }
         if(jundge_legal){
+            xu_dialog=new XuProcessDialog(this);xu_dialog.show();
             XuUser xuuser=new XuUser();
             xuuser.setUsername(str_phonenum);
             xuuser.setPassword(str_password);
@@ -143,12 +151,18 @@ public class SignActivity extends Activity implements View.OnClickListener{
                 @Override
                 public void done(XuUser o, BmobException e) {
                     if(e==null){
-                        L.i(TAG,"上传成功！");
+                        T.showShot(mcontext,"注册成功！");
+                        L.i(TAG,"注册成功！");
                     }else {
-                        L.i(TAG,"上传失败！");
+                        T.showShot(mcontext,"注册失败！");
+                        L.i(TAG,"注册失败！");
+                        button_ok.setEnabled(true);
                     }
+                    xu_dialog.dismiss();
                 }
             });
+        }else {
+            button_ok.setEnabled(true);
         }
     }
 }

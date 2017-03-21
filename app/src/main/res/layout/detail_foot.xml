@@ -7,12 +7,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
+            android:id="@+id/foot_button"
             android:layout_alignParentRight="true"
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:text="发送"/>
 
         <EditText
+            android:id="@+id/foot_edittext"
             android:layout_marginRight="65dp"
             android:layout_marginLeft="6dp"
             android:layout_width="match_parent"

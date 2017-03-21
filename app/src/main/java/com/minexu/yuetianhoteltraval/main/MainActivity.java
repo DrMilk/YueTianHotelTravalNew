@@ -8,17 +8,25 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.minexu.yuetianhoteltraval.Utils.L;
 import com.minexu.yuetianhoteltraval.food.FoodFragment;
 import com.minexu.yuetianhoteltraval.hotel.HotelFragment;
 import com.minexu.yuetianhoteltraval.mine.MineFragment;
 import com.minexu.yuetianhoteltraval.R;
+import com.minexu.yuetianhoteltraval.onlinedata.Alldata;
 import com.minexu.yuetianhoteltraval.travel.TravelFragment;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.QueryListener;
 
 /**
  * Created by Administrator on 2017/3/16.
  */
 
 public class MainActivity extends Activity implements View.OnClickListener{
+    private String TAG="MainActivity";
+    private Alldata alldata;
     private LinearLayout linearLayout_firstab;
     private LinearLayout linearLayout_travel;
     private LinearLayout linearLayout_food;
@@ -29,8 +37,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private Fragment fragment_food;
     private Fragment fragment_hotel;
     private Fragment fragment_mine;
+    private FirstTabFragmentProcess fragment_process;
     private FragmentManager fm;
     private FragmentTransaction ft;
+    private int tab_num=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,14 +62,45 @@ public class MainActivity extends Activity implements View.OnClickListener{
         linearLayout_travel.setOnClickListener(this);
     }
     private void initFragment() {
-        fragment_firstab=new FirstTabFragment();
-        fragment_hotel=new HotelFragment();
-        fragment_food=new FoodFragment();
+        fragment_process=new FirstTabFragmentProcess();
+        BmobQuery<Alldata> query = new BmobQuery<Alldata>();
+        query.getObject("d72519fa6e", new QueryListener<Alldata>() {
+
+            @Override
+            public void done(Alldata object, BmobException e) {
+                if(e==null){
+                    alldata=object;
+                    fragment_firstab=new FirstTabFragment();
+                    Bundle bundle=new Bundle();
+                    bundle.putStringArrayList("data",alldata.getList_spot());
+                    fragment_firstab.setArguments(bundle);
+                    fragment_hotel=new HotelFragment();
+                    bundle=new Bundle();
+                    bundle.putStringArrayList("data",alldata.getList_hotel());
+                    fragment_hotel.setArguments(bundle);
+                    fragment_food=new FoodFragment();
+                    bundle=new Bundle();
+                    bundle.putStringArrayList("data",alldata.getList_food());
+                    fragment_food.setArguments(bundle);
+                    fragment_travel=new TravelFragment();
+                    bundle=new Bundle();
+                    bundle.putStringArrayList("data",alldata.getList_travel());
+                    fragment_travel.setArguments(bundle);
+                    updataChangeFragment();
+                    L.i(TAG,"all"+"下载成功");
+                }else{
+                    L.i(TAG,"all"+"下载失败");
+                }
+            }
+
+        });
         fragment_mine=new MineFragment();
-        fragment_travel=new TravelFragment();
         fm=getFragmentManager();
         ft=fm.beginTransaction();
-        ft.replace(R.id.activity_main_main,fragment_firstab);
+        if(fragment_firstab!=null)
+            ft.replace(R.id.activity_main_main,fragment_firstab);
+        else
+            ft.replace(R.id.activity_main_main,fragment_process);
         ft.commit();
     }
     @Override
@@ -67,22 +108,103 @@ public class MainActivity extends Activity implements View.OnClickListener{
         switch (v.getId()){
             case R.id.activity_main_firsttab:
                 ft=fm.beginTransaction();
-                ft.replace(R.id.activity_main_main,fragment_firstab);
+                tab_num=0;
+                if(fragment_firstab!=null)
+                    ft.replace(R.id.activity_main_main,fragment_firstab);
+                else {
+                    ft.replace(R.id.activity_main_main,fragment_process);
+                   fragment_process.updataTitle("景点列表");
+                }
+
                 ft.commit();break;
             case R.id.activity_main_travel:
                 ft=fm.beginTransaction();
-                ft.replace(R.id.activity_main_main,fragment_travel);
+                tab_num=1;
+                if(fragment_travel!=null)
+                    ft.replace(R.id.activity_main_main,fragment_travel);
+                else{
+                    ft.replace(R.id.activity_main_main,fragment_process);
+                    fragment_process.updataTitle("游记");
+                }
                 ft.commit();break;
             case R.id.activity_main_food:ft=fm.beginTransaction();
-                ft.replace(R.id.activity_main_main,fragment_food);
+                tab_num=2;
+                if(fragment_food!=null)
+                    ft.replace(R.id.activity_main_main,fragment_food);
+                else{
+                    ft.replace(R.id.activity_main_main,fragment_process);
+                    fragment_process.updataTitle("美食");
+                }
                 ft.commit();break;
             case R.id.activity_main_hotel:
                 ft=fm.beginTransaction();
-                ft.replace(R.id.activity_main_main,fragment_hotel);
+                tab_num=3;
+                if(fragment_hotel!=null)
+                     ft.replace(R.id.activity_main_main,fragment_hotel);
+                else{
+                    ft.replace(R.id.activity_main_main,fragment_process);
+                    fragment_process.updataTitle("酒店");
+                }
                 ft.commit();break;
             case R.id.activity_main_mine:
                 ft=fm.beginTransaction();
+                tab_num=4;
+                if(fragment_mine!=null)
                 ft.replace(R.id.activity_main_main,fragment_mine);
+                else
+                    ft.replace(R.id.activity_main_main,fragment_process);
+                ft.commit();break;
+        }
+    }
+    public void updataChangeFragment(){
+        switch (tab_num){
+            case 0:
+                ft=fm.beginTransaction();
+                tab_num=0;
+                if(fragment_firstab!=null)
+                    ft.replace(R.id.activity_main_main,fragment_firstab);
+                else {
+                    ft.replace(R.id.activity_main_main,fragment_process);
+                    fragment_process.updataTitle("景点列表");
+                }
+
+                ft.commit();break;
+            case 1:
+                ft=fm.beginTransaction();
+                tab_num=1;
+                if(fragment_travel!=null)
+                    ft.replace(R.id.activity_main_main,fragment_travel);
+                else{
+                    ft.replace(R.id.activity_main_main,fragment_process);
+                    fragment_process.updataTitle("游记");
+                }
+                ft.commit();break;
+            case 2:
+                tab_num=2;
+                if(fragment_food!=null)
+                    ft.replace(R.id.activity_main_main,fragment_food);
+                else{
+                    ft.replace(R.id.activity_main_main,fragment_process);
+                    fragment_process.updataTitle("美食");
+                }
+                ft.commit();break;
+            case 3:
+                ft=fm.beginTransaction();
+                tab_num=3;
+                if(fragment_hotel!=null)
+                    ft.replace(R.id.activity_main_main,fragment_hotel);
+                else{
+                    ft.replace(R.id.activity_main_main,fragment_process);
+                    fragment_process.updataTitle("酒店");
+                }
+                ft.commit();break;
+            case 4:
+                ft=fm.beginTransaction();
+                tab_num=4;
+                if(fragment_mine!=null)
+                    ft.replace(R.id.activity_main_main,fragment_mine);
+                else
+                    ft.replace(R.id.activity_main_main,fragment_process);
                 ft.commit();break;
         }
     }

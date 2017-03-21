@@ -1,20 +1,28 @@
 package com.minexu.yuetianhoteltraval.onlinedata;
 
+import java.util.ArrayList;
+
+import cn.bmob.v3.BmobObject;
+
 /**
  * Created by Administrator on 2017/3/17.
  */
 
-public class Fooddata {
+public class Fooddata extends BmobObject{
     private String title;
     private String context;
     private boolean pic_status;
     private int price;
     private int specise;
-    public Fooddata(String title, String context, boolean pic_status, int price) {
+    private ArrayList<String> list_remarkd;
+    public Fooddata(){}
+    public Fooddata(String title, String context, boolean pic_status, int price, int specise, ArrayList<String> list_remarkd) {
         this.title = title;
         this.context = context;
         this.pic_status = pic_status;
         this.price = price;
+        this.specise = specise;
+        this.list_remarkd = list_remarkd;
     }
 
     public String getTitle() {
@@ -55,5 +63,13 @@ public class Fooddata {
 
     public void setSpecise(int specise) {
         this.specise = specise;
+    }
+
+    public ArrayList<String> getList_remarkd() {
+        return list_remarkd;
+    }
+
+    public void setList_remarkd(ArrayList<String> list_remarkd) {
+        this.list_remarkd = list_remarkd;
     }
 }
