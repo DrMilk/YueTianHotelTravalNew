@@ -50,12 +50,14 @@ public class RemarkAdapter extends BaseAdapter{
             convertView=mlayoutinflater.inflate(R.layout.listitem_food_remark,null);
             wuViewHolder.text_context= (TextView) convertView.findViewById(R.id.list_food_text);
             wuViewHolder.text_id= (TextView) convertView.findViewById(R.id.list_food_id);
+            wuViewHolder.text_time= (TextView) convertView.findViewById(R.id.list_food_time);
             convertView.setTag(wuViewHolder);
         }else {
             wuViewHolder= (RemarkAdapter.MyViewHolder) convertView.getTag();
         }
         wuViewHolder.text_context.setText(list_data.get(position).getContext());
         wuViewHolder.text_id.setText(list_data.get(position).getId());
+        wuViewHolder.text_time.setText(list_data.get(position).getCreatedAt());
         return convertView;
     }
     private class MyViewHolder{

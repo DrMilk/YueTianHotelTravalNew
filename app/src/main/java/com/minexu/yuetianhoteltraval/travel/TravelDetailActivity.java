@@ -8,10 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.minexu.yuetianhoteltraval.R;
+import com.minexu.yuetianhoteltraval.Utils.MyUpload;
 import com.minexu.yuetianhoteltraval.Utils.T;
 import com.minexu.yuetianhoteltraval.food.RemarkAdapter;
 import com.minexu.yuetianhoteltraval.login.LoginActivity;
@@ -46,11 +48,14 @@ public class TravelDetailActivity extends Activity{
     private Context mcontext;
     private Button button_remark;
     private EditText edit_remark;
+    private ImageView img;
+    private MyUpload myUpload;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_travel_detail);
         mcontext=this;
+        myUpload=new MyUpload(mcontext);
         receivedata();
         initdata();
         initview();
@@ -95,6 +100,8 @@ public class TravelDetailActivity extends Activity{
         LayoutInflater inflater=LayoutInflater.from(mcontext);
         View headview=inflater.inflate(R.layout.detail_head,null);
         View footview=inflater.inflate(R.layout.detail_foot,null);
+        img= (ImageView) headview.findViewById(R.id.detail_head_img);
+        myUpload.download_asynchronous("yuetiantravel","listimg/"+id,img);
         title= (TextView) headview.findViewById(R.id.detail_head_title);
         context= (TextView) headview.findViewById(R.id.detail_head_context);
         button_remark= (Button) footview.findViewById(R.id.foot_button);

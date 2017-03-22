@@ -130,17 +130,13 @@ public class MyUpload {
     }
     //异步
     public byte[] download_asynchronous(String bucketName, final String objectKey, final ImageView img){
-        final String cache_str=objectKey.split("/")[1]+"_"+objectKey.split("/")[2];
+        final String cache_str=objectKey.split("/")[1];
         Bitmap bitmap=wuSdcard.getPicture(MySdcard.pathCacheImage,cache_str);
-        L.i(TAG, "Tag"+(String) img.getTag());
         if(bitmap!=null){
-            if(img.getTag().equals(cache_str)){
-                img.setImageBitmap(bitmap);
-            }else {
-                img.setImageResource(R.mipmap.mall_comment_photos_add);
-            }
+            img.setImageBitmap(bitmap);
             return null;
         }
+        Log.i(TAG,"到了吗");
 //        if(lruCacheUtil.getBitmapFromMemCache(objectKey)!=null){
 //            img.setImageBitmap(lruCacheUtil.getBitmapFromMemCache(objectKey));
 //            L.i(TAG,"ok le");
@@ -156,12 +152,10 @@ public class MyUpload {
                 InputStream inputStream = result.getObjectContent();
               //  lruCacheUtil.addBitmapToMemoryCache(objectKey,BitmapFactory.decodeStream(inputStream));
                 wuSdcard.savePicture(MySdcard.pathCacheImage,cache_str,BitmapFactory.decodeStream(inputStream));
-                if(img.getTag().equals(cache_str)){
                     Bitmap bitmap=wuSdcard.getPicture(MySdcard.pathCacheImage,cache_str);
                     if(bitmap!=null){
                             img.setImageBitmap(bitmap);
                     }
-                }
                 byte[] buffer = new byte[2048];
                 int len;
                 try {
@@ -410,4 +404,5 @@ public class MyUpload {
         Log.i("MyUpload",outStream.toByteArray().length+"youyisile");
 // task.waitUntilFinished(); // 如果需要等待任务完成
     }
+
 }

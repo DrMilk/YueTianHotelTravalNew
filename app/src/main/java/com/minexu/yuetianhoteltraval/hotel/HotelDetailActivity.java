@@ -8,10 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.minexu.yuetianhoteltraval.R;
+import com.minexu.yuetianhoteltraval.Utils.MyUpload;
 import com.minexu.yuetianhoteltraval.Utils.T;
 import com.minexu.yuetianhoteltraval.food.FoodDetailActivity;
 import com.minexu.yuetianhoteltraval.food.RemarkAdapter;
@@ -50,11 +52,14 @@ public class HotelDetailActivity extends Activity{
     private Button button_remark;
     private EditText edit_remark;
     private String name;
+    private MyUpload myUpload;
+    private ImageView img;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_detail);
         mcontext=this;
+        myUpload=new MyUpload(mcontext);
         receivedata();
         initview();
     }
@@ -95,6 +100,8 @@ public class HotelDetailActivity extends Activity{
         View footview=inflater.inflate(R.layout.detail_foot,null);
         button_remark= (Button) footview.findViewById(R.id.foot_button);
         edit_remark= (EditText) footview.findViewById(R.id.foot_edittext);
+        img= (ImageView) headview.findViewById(R.id.detail_head_img);
+        myUpload.download_asynchronous("yuetiantravel","listimg/"+id,img);
         button_remark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -11,6 +11,8 @@ import android.widget.ImageView;
 
 import com.minexu.yuetianhoteltraval.R;
 import com.minexu.yuetianhoteltraval.Utils.L;
+import com.minexu.yuetianhoteltraval.Utils.MySdcard;
+import com.minexu.yuetianhoteltraval.Utils.SharePreferenceUtil;
 import com.minexu.yuetianhoteltraval.Utils.StringLegalUtil;
 import com.minexu.yuetianhoteltraval.Utils.T;
 import com.minexu.yuetianhoteltraval.customView.XuProcessDialog2;
@@ -48,6 +50,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     private boolean button_status=false;
     private Context mcontext;
     private XuProcessDialog2 xuloginprocess;
+    private MySdcard mySdcard;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +58,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         mcontext=this;
         initView();
         mbmobinitdata();
+        mySdcard=new MySdcard();
+        mySdcard.initWuSdcard(mcontext);
     }
 
     private void initView() {
@@ -70,11 +75,13 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             @Override
             public void onClick(View v) {
                 if(button_status){
+                    img_on.setImageResource(R.mipmap.lottery_fill_order_button_off);
+                    SharePreferenceUtil.putSettingDataBoolean(mcontext,SharePreferenceUtil.AUTOLOGIN,false);
+                    button_status=true;
+                }else {
                     img_on.setImageResource(R.mipmap.lottery_fill_order_button_on);
                     button_status=false;
-                }else {
-                    img_on.setImageResource(R.mipmap.lottery_fill_order_button_off);
-                    button_status=true;
+                    SharePreferenceUtil.putSettingDataBoolean(mcontext,SharePreferenceUtil.AUTOLOGIN,true);
                 }
 
             }
@@ -105,16 +112,16 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         boolean jundge_legal=true;
         String id=edit_userid.getText().toString().trim();
         String password=edit_password.getText().toString().trim();
-//        if(!StringLegalUtil.isHaveLength(id)){
-//            edit_userid.setError("请输入手机号！");
-//            jundge_legal=false;
-//        }else if(!StringLegalUtil.isCorrectPhonenum(id)){
-//            edit_userid.setError("请输入正确的手机号！");
-//            jundge_legal=false;
-//        }
+        if(!StringLegalUtil.isHaveLength(id)){
+            edit_userid.setError("请输入手机号！");
+            jundge_legal=false;
+        }else if(!StringLegalUtil.isCorrectPhonenum(id)){
+            edit_userid.setError("请输入正确的手机号！");
+            jundge_legal=false;
+        }
         if(jundge_legal){
             xuloginprocess=new XuProcessDialog2(mcontext);xuloginprocess.show();
-            XuUser.loginByAccount("18249028972", "A5201314+-", new LogInListener<XuUser>() {
+            XuUser.loginByAccount(id,password, new LogInListener<XuUser>() {
                 @Override
                 public void done(XuUser xuUser, BmobException e) {
                     if(xuUser!=null) {
@@ -207,15 +214,28 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             // 允许用户使用应用
             //  String name= (String) BmobUser.getObjectByKey("treename");
             //  text_username.setText(name);
+            userrun();
             return true;
         }else{
             //缓存用户对象为空时， 可打开用户注册界面…
-            userrun();
             return false;
         }
     }
 
     private void userrun() {
+        Intent it=new Intent(LoginActivity.this,MainActivity.class);
+        startActivity(it);
     }
 
+    @Override
+    protected void onResume() {
+        if(SharePreferenceUtil.getSettingDataBoolean(mcontext,SharePreferenceUtil.AUTOLOGIN)){
+            if(checkuser()){
+
+            }
+        }else {
+            img_on.setImageResource(R.mipmap.lottery_fill_order_button_off);
+        }
+        super.onResume();
+    }
 }

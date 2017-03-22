@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.minexu.yuetianhoteltraval.R;
+import com.minexu.yuetianhoteltraval.Utils.MyUpload;
 import com.minexu.yuetianhoteltraval.Utils.T;
 import com.minexu.yuetianhoteltraval.food.FoodDetailActivity;
 import com.minexu.yuetianhoteltraval.login.LoginActivity;
@@ -34,11 +36,14 @@ public class SpotDetailActivity extends Activity{
     private Button button_collect;
     private String name;
     private ArrayList<String> list_collect;
+    private MyUpload myUpload;
+    private ImageView img;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spot_detail);
         mcontext=this;
+        myUpload=new MyUpload(mcontext);
         receviewdata();
         intiview();
     }
@@ -54,6 +59,8 @@ public class SpotDetailActivity extends Activity{
         title= (TextView) findViewById(R.id.spot_title);
         context= (TextView) findViewById(R.id.spot_context);
         button_collect= (Button) findViewById(R.id.button_collect);
+        img= (ImageView) findViewById(R.id.spot_img);
+        myUpload.download_asynchronous("yuetiantravel","listimg/"+id,img);
         button_collect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

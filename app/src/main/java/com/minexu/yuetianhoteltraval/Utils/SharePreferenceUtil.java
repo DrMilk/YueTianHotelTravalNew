@@ -11,6 +11,7 @@ public class SharePreferenceUtil {
     private static String SETTING_URL="setting";
     public static String INITSDCARD_KEY="isInitSdcard";
     public static String WIFIUPDATA_KEY="iswifi";
+    public static String AUTOLOGIN="isautologin";
     public static void putSettingDataBoolean(Context mcontext,String key,boolean isTrue){
         SharedPreferences sp=mcontext.getSharedPreferences(SETTING_URL,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor=sp.edit();

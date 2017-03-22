@@ -17,6 +17,7 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
     <ImageView
+        android:id="@+id/detail_head_img"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:src="@mipmap/bg_204"/>

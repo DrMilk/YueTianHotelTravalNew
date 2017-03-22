@@ -67,7 +67,7 @@
                 android:id="@+id/login_img_on"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/lottery_fill_order_button_on"
+                android:src="@mipmap/lottery_fill_order_button_off"
                 />
         </RelativeLayout>
     </LinearLayout>

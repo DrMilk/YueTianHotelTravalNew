@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.minexu.yuetianhoteltraval.R;
+import com.minexu.yuetianhoteltraval.Utils.MyUpload;
 import com.minexu.yuetianhoteltraval.onlinedata.Fooddata;
 import com.minexu.yuetianhoteltraval.onlinedata.Hoteldata;
 
@@ -22,9 +23,11 @@ public class HotelListAdatapter extends BaseAdapter{
     private List<Hoteldata> list_data;
     private MyViewHolder wuViewHolder;
     private LayoutInflater mlayoutinflater;
+    private MyUpload myUpload;
     public HotelListAdatapter(Context mcontext, List<Hoteldata> list_data){
         mlayoutinflater=LayoutInflater.from(mcontext);
         this.list_data=list_data;
+        myUpload=new MyUpload(mcontext);
     }
 
     @Override
@@ -58,6 +61,7 @@ public class HotelListAdatapter extends BaseAdapter{
         wuViewHolder.text_title.setText(list_data.get(position).getTitle());
         wuViewHolder.text_context.setText(list_data.get(position).getContext());
         wuViewHolder.text_price.setText(list_data.get(position).getPrice()+"");
+        myUpload.download_asynchronous("yuetiantravel","listimg/"+list_data.get(position).getObjectId(),wuViewHolder.img);
         return convertView;
     }
     private class MyViewHolder{
