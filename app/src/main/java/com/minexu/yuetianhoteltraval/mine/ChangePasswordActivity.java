@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.minexu.yuetianhoteltraval.R;
 import com.minexu.yuetianhoteltraval.Utils.L;
 import com.minexu.yuetianhoteltraval.Utils.T;
+import com.minexu.yuetianhoteltraval.customView.XuProcessDialog;
 import com.minexu.yuetianhoteltraval.login.LoginActivity;
 import com.minexu.yuetianhoteltraval.onlinedata.XuUser;
 
@@ -24,6 +25,7 @@ import cn.bmob.v3.listener.UpdateListener;
  */
 
 public class ChangePasswordActivity extends Activity implements View.OnClickListener{
+    private XuProcessDialog xuProcessDialog;
     private String TAG="ChangePasswordActivity";
     private TextView textView_user;
     private EditText editText_password;
@@ -102,16 +104,18 @@ public class ChangePasswordActivity extends Activity implements View.OnClickList
             editText_password.setError("请输入密码！");
             jundge=false;
         }
+        xuProcessDialog=new XuProcessDialog(mcontext);
+        xuProcessDialog.show();
         if(jundge){
             BmobUser.updateCurrentUserPassword(passwordold,password, new UpdateListener() {
                 @Override
                 public void done(BmobException e) {
                     if(e==null){
                         T.showShot(mcontext,"更改成功！");
-                        ChangePasswordActivity.this.finish();
                     }else{
                         T.showShot(mcontext,"更改失败！");
                     }
+                    xuProcessDialog.dismiss();
                 }
 
             });

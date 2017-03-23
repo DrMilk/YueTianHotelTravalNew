@@ -14,4 +14,8 @@
             android:layout_gravity="center"
             android:theme="@style/title_font" />
     </RelativeLayout>
+    <ListView
+        android:id="@+id/mine_collect_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>

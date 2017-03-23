@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.minexu.yuetianhoteltraval.R;
 import com.minexu.yuetianhoteltraval.Utils.L;
@@ -51,6 +52,9 @@ public class FirstTabFragment extends Fragment{
     private ArrayList<String> list_str;
     private XuBannerViewpagerAdapter xubv;
     private SpotListAdatapter spotListAdatapter;
+    private SearchView searchView;
+    private ArrayList<Spotdata> sv_all=new ArrayList<>();
+    private ArrayList<Spotdata> sv_limit=new ArrayList<>();
     private Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -91,6 +95,7 @@ public class FirstTabFragment extends Fragment{
 
     private void updataview() {
         if(list_spot.size()==list_str.size()){
+            sv_all=list_spot;
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -100,7 +105,15 @@ public class FirstTabFragment extends Fragment{
             });
         }
     }
-
+    private void updataviewlimit(){
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                L.i(TAG,"Gengxinle");
+                spotListAdatapter.notifyDataSetChanged();
+            }
+        });
+    }
     @Override
     public void onStart() {
         thread_lock=true;
@@ -120,6 +133,34 @@ public class FirstTabFragment extends Fragment{
         banner_viewPager= (ViewPager) view.findViewById(R.id.main_banner_viewpager);
         ll= (LinearLayout) view.findViewById(R.id.main_banner_linear_point);
         listview_spot= (ListView) view.findViewById(R.id.activity_spot_listview);
+        searchView= (SearchView) view.findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if(query.length()==0){
+                    list_spot=sv_all;
+                    updataviewlimit();
+                    return false;
+                }
+                sv_limit=new ArrayList<Spotdata>();
+                sv_all=list_spot;
+                for(int i=0;i<list_spot.size();i++){
+                    if(list_spot.get(i).getTitle().contains(query)){
+                        sv_limit.add(list_spot.get(i));
+                        L.i(TAG,"搜索到了吗！");
+                    }
+                }
+                sv_all=list_spot;
+                list_spot=sv_limit;
+                updataviewlimit();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         list_banner=new ArrayList<>();
         ImageView img1=new ImageView(mcontext);
         ImageView img2=new ImageView(mcontext);
@@ -214,5 +255,10 @@ public class FirstTabFragment extends Fragment{
             banner_thread.start();
         }
         super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }
