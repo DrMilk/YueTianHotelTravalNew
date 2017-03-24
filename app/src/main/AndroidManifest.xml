@@ -65,6 +65,7 @@
         <activity android:name=".mine.PersonaldActivity"/>
         <activity android:name=".mine.SettingActivity"/>
         <activity android:name=".mine.WeatherActivity"/>
+        <activity android:name=".mine.DingweiMap"/>
         <activity android:name=".mine.LocationActivity"/>
         <activity android:name=".food.FoodDetailActivity"/>
         <activity android:name=".hotel.HotelDetailActivity"/>

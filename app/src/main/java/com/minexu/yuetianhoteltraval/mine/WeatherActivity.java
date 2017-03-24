@@ -22,6 +22,7 @@ import com.amap.api.services.weather.LocalWeatherLiveResult;
 import com.amap.api.services.weather.WeatherSearch;
 import com.amap.api.services.weather.WeatherSearchQuery;
 import com.minexu.yuetianhoteltraval.R;
+import com.minexu.yuetianhoteltraval.Utils.L;
 
 import java.util.List;
 
@@ -30,6 +31,7 @@ import java.util.List;
  */
 
 public class WeatherActivity extends Activity implements WeatherSearch.OnWeatherSearchListener {
+    private String TAG="WeatherActivity";
     //声明AMapLocationClient类对象
     public AMapLocationClient mLocationClient = null;
     //声明mLocationOption对象
@@ -185,7 +187,7 @@ public class WeatherActivity extends Activity implements WeatherSearch.OnWeather
      */
     @Override
     public void onWeatherLiveSearched(LocalWeatherLiveResult weatherLiveResult , int rCode) {
-        if (rCode == 0) {
+        if (rCode == 1000) {
             if (weatherLiveResult != null && weatherLiveResult.getLiveResult() != null) {
                 weatherlive = weatherLiveResult.getLiveResult();
                 //  reporttime1.setText(weatherlive.getReportTime()+"发布");
@@ -195,10 +197,13 @@ public class WeatherActivity extends Activity implements WeatherSearch.OnWeather
                 today_wind_img.setImageResource(imgwindDirection(weatherlive.getWindDirection()));
                 today_wind_level.setText(weatherlive.getWindPower()+"级");
                 today_dum_level.setText(weatherlive.getHumidity()+"%");
+                L.i(TAG,weatherlive.getWeather());
             }else {
                 //     ToastUtil.show(WeatherSearchActivity.this, R.string.no_result);
+                L.i(TAG,"aaaa");
             }
         }else {
+            L.i(TAG,rCode+"");
             //    ToastUtil.showerror(WeatherSearchActivity.this, rCode);
         }
     }

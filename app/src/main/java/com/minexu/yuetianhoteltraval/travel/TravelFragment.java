@@ -12,9 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.minexu.yuetianhoteltraval.R;
 import com.minexu.yuetianhoteltraval.Utils.L;
+import com.minexu.yuetianhoteltraval.main.SpotDetailActivity;
 import com.minexu.yuetianhoteltraval.onlinedata.Spotdata;
 import com.minexu.yuetianhoteltraval.onlinedata.Traveldata;
 
@@ -30,6 +32,7 @@ import cn.bmob.v3.listener.QueryListener;
  */
 
 public class TravelFragment extends Fragment{
+    private SearchView searchView;
     private String TAG="TravelFragment";
     private ListView listView;
     private List<Traveldata> list_data;
@@ -103,6 +106,38 @@ public class TravelFragment extends Fragment{
                 bundle.putString("id",list_travel.get(position).getObjectId());
                 it.putExtras(bundle);
                 startActivity(it);
+            }
+        });
+        searchView= (SearchView) view.findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if(query==null){
+                    BmobQuery<Traveldata> query1 = new BmobQuery<Traveldata>();
+                    query1.getObject(query, new QueryListener<Traveldata>() {
+                        @Override
+                        public void done(Traveldata traveldata, BmobException e) {
+                            if(e==null){
+                                Intent it=new Intent(getActivity(),TravelDetailActivity.class);
+                                Bundle bundle=new Bundle();
+                                bundle.putString("title",traveldata.getTitle());
+                                bundle.putString("context",traveldata.getContext());
+                                bundle.putStringArrayList("remarklist",traveldata.getList_remark());
+                                bundle.putString("id",traveldata.getObjectId());
+                                it.putExtras(bundle);
+                                startActivity(it);
+                            }
+                        }
+                    });
+                    L.i(TAG,"出现严重错误！");
+                }
+                //   updataviewlimit(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
             }
         });
         return view;

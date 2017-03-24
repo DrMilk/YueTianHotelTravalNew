@@ -14,6 +14,7 @@ import com.minexu.yuetianhoteltraval.Utils.L;
 import com.minexu.yuetianhoteltraval.Utils.MyUpload;
 import com.minexu.yuetianhoteltraval.onlinedata.Spotdata;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,10 +24,10 @@ import java.util.List;
 public class SpotListAdatapter extends BaseAdapter{
     private String TAG="SpotListAdatapter";
     private MyUpload myUpload;
-    private List<Spotdata> list_data;
+    private ArrayList<Spotdata> list_data;
     private MyViewHolder wuViewHolder;
     private LayoutInflater mlayoutinflater;
-    public SpotListAdatapter(Context mcontext,List<Spotdata> list_data){
+    public SpotListAdatapter(Context mcontext,ArrayList<Spotdata> list_data){
         mlayoutinflater=LayoutInflater.from(mcontext);
         myUpload=new MyUpload(mcontext);
         this.list_data=list_data;
@@ -72,5 +73,13 @@ public class SpotListAdatapter extends BaseAdapter{
         private TextView text_title;
         private TextView text_context;
         private ImageView img;
+    }
+
+    public ArrayList<Spotdata> getList_data() {
+        return list_data;
+    }
+
+    public void setList_data(ArrayList<Spotdata> list_data) {
+        this.list_data = list_data;
     }
 }

@@ -23,6 +23,7 @@ import com.minexu.yuetianhoteltraval.Utils.L;
 import com.minexu.yuetianhoteltraval.food.FoodFragment;
 import com.minexu.yuetianhoteltraval.hotel.HotelFragment;
 import com.minexu.yuetianhoteltraval.onlinedata.Alldata;
+import com.minexu.yuetianhoteltraval.onlinedata.Remakdata;
 import com.minexu.yuetianhoteltraval.onlinedata.Spotdata;
 import com.minexu.yuetianhoteltraval.travel.TravelFragment;
 
@@ -95,7 +96,10 @@ public class FirstTabFragment extends Fragment{
 
     private void updataview() {
         if(list_spot.size()==list_str.size()){
-            sv_all=list_spot;
+            sv_all=new ArrayList<>();
+            for(int i=0;i<list_spot.size();i++){
+                sv_all.add(list_spot.get(i));
+            }
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -105,7 +109,27 @@ public class FirstTabFragment extends Fragment{
             });
         }
     }
-    private void updataviewlimit(){
+    private void updataviewlimit(String s){
+        if(s.length()==0){
+            for(int q=0;q<list_spot.size();q++){
+                list_spot.remove(q);
+            }
+            for(int i=0;i<sv_all.size();i++){
+                list_spot.add(sv_all.get(i));
+            }
+            spotListAdatapter.setList_data(list_spot);
+        }else {
+            for(int i=0;i<list_spot.size();i++){
+                L.i(TAG,"循环~"+list_spot.size()+"  "+i);
+                if(list_spot.get(i).getTitle().contains(s)){
+                    //sv_limit.add(list_spot.get(i));
+                    L.i(TAG,"搜索到了吗！");
+                }else{
+                    list_spot.remove(i);
+                    i--;
+                }
+            }
+        }
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -137,23 +161,26 @@ public class FirstTabFragment extends Fragment{
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                if(query.length()==0){
-                    list_spot=sv_all;
-                    updataviewlimit();
+                if(query==null){
+                    BmobQuery<Spotdata> query1 = new BmobQuery<Spotdata>();
+                    query1.getObject(query, new QueryListener<Spotdata>() {
+                        @Override
+                        public void done(Spotdata spotdata, BmobException e) {
+                            if(e==null){
+                                Intent it=new Intent(getActivity(),SpotDetailActivity.class);
+                                Bundle bundle=new Bundle();
+                                bundle.putString("title",spotdata.getTitle());
+                                bundle.putString("context",spotdata.getContext());
+                                bundle.putString("id",spotdata.getObjectId());
+                                it.putExtras(bundle);
+                                getActivity().startActivity(it);
+                            }
+                        }
+                    });
+                    L.i(TAG,"出现严重错误！");
+                }
+                 //   updataviewlimit(query);
                     return false;
-                }
-                sv_limit=new ArrayList<Spotdata>();
-                sv_all=list_spot;
-                for(int i=0;i<list_spot.size();i++){
-                    if(list_spot.get(i).getTitle().contains(query)){
-                        sv_limit.add(list_spot.get(i));
-                        L.i(TAG,"搜索到了吗！");
-                    }
-                }
-                sv_all=list_spot;
-                list_spot=sv_limit;
-                updataviewlimit();
-                return false;
             }
 
             @Override

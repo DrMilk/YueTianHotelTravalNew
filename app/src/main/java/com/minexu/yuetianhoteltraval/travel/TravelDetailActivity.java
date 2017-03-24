@@ -50,6 +50,7 @@ public class TravelDetailActivity extends Activity{
     private EditText edit_remark;
     private ImageView img;
     private MyUpload myUpload;
+    private TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,6 +107,8 @@ public class TravelDetailActivity extends Activity{
         context= (TextView) headview.findViewById(R.id.detail_head_context);
         button_remark= (Button) footview.findViewById(R.id.foot_button);
         edit_remark= (EditText) footview.findViewById(R.id.foot_edittext);
+        textView= (TextView) headview.findViewById(R.id.detail_head_price_sign);
+        textView.setVisibility(View.GONE);
         button_remark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

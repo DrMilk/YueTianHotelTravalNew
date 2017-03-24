@@ -8,10 +8,13 @@
         android:orientation="horizontal">
         <Button
             android:id="@+id/foot_button"
+            android:background="@drawable/button_bg"
             android:layout_alignParentRight="true"
             android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:text="发送"/>
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:text="发 送"/>
 
         <EditText
             android:id="@+id/foot_edittext"

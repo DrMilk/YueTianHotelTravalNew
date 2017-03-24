@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.minexu.yuetianhoteltraval.Utils.L;
@@ -41,6 +42,11 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private FragmentManager fm;
     private FragmentTransaction ft;
     private int tab_num=0;
+    private ImageView img1;
+    private ImageView img2;
+    private ImageView img3;
+    private ImageView img4;
+    private ImageView img5;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +66,11 @@ public class MainActivity extends Activity implements View.OnClickListener{
         linearLayout_hotel.setOnClickListener(this);
         linearLayout_mine.setOnClickListener(this);
         linearLayout_travel.setOnClickListener(this);
+        img1= (ImageView) findViewById(R.id.bottom_img1);
+        img2= (ImageView) findViewById(R.id.bottom_img2);
+        img3= (ImageView) findViewById(R.id.bottom_img3);
+        img4= (ImageView) findViewById(R.id.bottom_img4);
+        img5= (ImageView) findViewById(R.id.bottom_img5);
     }
     private void initFragment() {
         fragment_process=new FirstTabFragmentProcess();
@@ -107,6 +118,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.activity_main_firsttab:
+                initBottomView();
+                img1.setImageResource(R.mipmap.host_index_cate_icon_s);
                 ft=fm.beginTransaction();
                 tab_num=0;
                 if(fragment_firstab!=null)
@@ -118,6 +131,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
                 ft.commit();break;
             case R.id.activity_main_travel:
+                initBottomView();
+                img2.setImageResource(R.mipmap.host_index_cart_icon_s);
                 ft=fm.beginTransaction();
                 tab_num=1;
                 if(fragment_travel!=null)
@@ -127,7 +142,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
                     fragment_process.updataTitle("游记");
                 }
                 ft.commit();break;
-            case R.id.activity_main_food:ft=fm.beginTransaction();
+            case R.id.activity_main_food:
+                initBottomView();
+                img3.setImageResource(R.mipmap.host_index_cate_icon_s);
+                ft=fm.beginTransaction();
                 tab_num=2;
                 if(fragment_food!=null)
                     ft.replace(R.id.activity_main_main,fragment_food);
@@ -137,6 +155,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 }
                 ft.commit();break;
             case R.id.activity_main_hotel:
+                initBottomView();
+                img4.setImageResource(R.mipmap.host_index_home_icon_s);
                 ft=fm.beginTransaction();
                 tab_num=3;
                 if(fragment_hotel!=null)
@@ -147,6 +167,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 }
                 ft.commit();break;
             case R.id.activity_main_mine:
+                initBottomView();
+                img5.setImageResource(R.mipmap.host_index_mine_icon_s);
                 ft=fm.beginTransaction();
                 tab_num=4;
                 if(fragment_mine!=null)
@@ -156,6 +178,15 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 ft.commit();break;
         }
     }
+
+    private void initBottomView() {
+        img2.setImageResource(R.mipmap.host_index_cart_icon);
+        img1.setImageResource(R.mipmap.host_index_cate_icon);
+        img3.setImageResource(R.mipmap.host_index_cate_icon);
+        img4.setImageResource(R.mipmap.host_index_home_icon);
+        img5.setImageResource(R.mipmap.host_index_mine_icon);
+    }
+
     public void updataChangeFragment(){
         switch (tab_num){
             case 0:
@@ -167,7 +198,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
                     ft.replace(R.id.activity_main_main,fragment_process);
                     fragment_process.updataTitle("景点列表");
                 }
-
                 ft.commit();break;
             case 1:
                 ft=fm.beginTransaction();

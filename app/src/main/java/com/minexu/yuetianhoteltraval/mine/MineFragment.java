@@ -51,7 +51,7 @@ public class MineFragment extends Fragment implements View.OnClickListener{
             case R.id.mine_personal:Intent it2=new Intent(getActivity(),PersonaldActivity.class);startActivity(it2);break;
             case R.id.mine_setting:Intent it3=new Intent(getActivity(),SettingActivity.class);startActivity(it3);break;
             case R.id.mine_weather:Intent it4=new Intent(getActivity(),WeatherActivity.class);startActivity(it4);break;
-            case R.id.mine_location:Intent it5=new Intent(getActivity(),LocationActivity.class);startActivity(it5);break;
+            case R.id.mine_location:Intent it5=new Intent(getActivity(),DingweiMap.class);startActivity(it5);break;
         }
     }
 }
