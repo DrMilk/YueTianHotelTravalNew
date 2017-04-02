@@ -13,9 +13,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.minexu.yuetianhoteltraval.R;
 import com.minexu.yuetianhoteltraval.Utils.L;
+import com.minexu.yuetianhoteltraval.main.MainActivity;
 import com.minexu.yuetianhoteltraval.main.SpotDetailActivity;
 import com.minexu.yuetianhoteltraval.onlinedata.Spotdata;
 import com.minexu.yuetianhoteltraval.onlinedata.Traveldata;
@@ -40,6 +42,7 @@ public class TravelFragment extends Fragment{
     private ArrayList<String> list_str;
     private ArrayList<Traveldata> list_travel;
     private TravelListAdatapter travelFragment;
+    private TextView text_add;
     private Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -95,6 +98,17 @@ public class TravelFragment extends Fragment{
         listView= (ListView) view.findViewById(R.id.activity_travel_listview);
         travelFragment=new TravelListAdatapter(mcontext,list_travel);
         listView.setAdapter(travelFragment);
+        text_add= (TextView) view.findViewById(R.id.travel_text_add);
+        text_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it=new Intent(getActivity(),TravelAddActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("alldata",((MainActivity)getActivity()).alldata);
+                it.putExtras(bundle);
+                startActivity(it);
+            }
+        });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

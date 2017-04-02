@@ -69,6 +69,8 @@
         <activity android:name=".mine.LocationActivity"/>
         <activity android:name=".food.FoodDetailActivity"/>
         <activity android:name=".hotel.HotelDetailActivity"/>
+        <activity android:name=".travel.TravelAddActivity"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <service android:name="com.amap.api.location.APSService"/>
         <meta-data
             android:name="com.amap.api.v2.apikey"

@@ -5,6 +5,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="50dp"
+        android:elevation="5dp"
         android:background="@color/pink_red_toobar">
         <TextView
             android:layout_centerInParent="true"
@@ -38,24 +39,20 @@
         android:paddingTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="74dp">
+
         <SearchView
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="2dp"
-            android:layout_marginTop="6dp"
-            android:background="@drawable/search_backgroud"
             android:id="@+id/search_view"
             android:layout_width="match_parent"
+            android:paddingRight="20dp"
             android:layout_height="wrap_content"
             android:iconifiedByDefault="false"
             android:imeOptions="actionSearch"
-            android:queryHint="Search" />
+            android:queryHint="搜索" />
     </LinearLayout>
     <ListView
         android:id="@+id/activity_spot_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@null">
-
     </ListView>
 </LinearLayout>

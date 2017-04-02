@@ -47,7 +47,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     private Button button_ok;
     private Button button_sign;
     private ImageView img_on;
-    private boolean button_status=false;
+    private boolean button_status=true;
     private Context mcontext;
     private XuProcessDialog2 xuloginprocess;
     private MySdcard mySdcard;
@@ -74,7 +74,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         img_on.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(button_status){
+                if(!button_status){
                     img_on.setImageResource(R.mipmap.lottery_fill_order_button_off);
                     SharePreferenceUtil.putSettingDataBoolean(mcontext,SharePreferenceUtil.AUTOLOGIN,false);
                     button_status=true;

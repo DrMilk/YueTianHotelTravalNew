@@ -5,6 +5,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="50dp"
+        android:elevation="6dp"
         android:background="@color/pink_red_toobar">
         <TextView
             android:layout_centerInParent="true"
@@ -17,14 +18,14 @@
     <TextView
         android:id="@+id/mine_setting_logout"
         android:layout_marginLeft="10dp"
+        android:text="注销登录"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:gravity="center_vertical"
         android:textColor="@color/black"
-        android:textSize="16sp"
-        android:text="注销登录"/>
+        android:textSize="16sp" />
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/pink_red_toobar"/>
+        android:layout_height="1px"
+        android:background="@color/gray"/>
 </LinearLayout>

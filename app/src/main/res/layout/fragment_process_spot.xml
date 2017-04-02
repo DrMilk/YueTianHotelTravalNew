@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="50dp"
@@ -14,6 +15,7 @@
             android:text="景点列表"
             android:theme="@style/title_font"/>
     </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/tab_context_linear_loading"
         android:layout_width="match_parent"

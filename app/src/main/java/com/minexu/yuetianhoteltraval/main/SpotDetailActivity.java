@@ -4,14 +4,19 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.minexu.yuetianhoteltraval.R;
 import com.minexu.yuetianhoteltraval.Utils.MyUpload;
 import com.minexu.yuetianhoteltraval.Utils.T;
+import com.minexu.yuetianhoteltraval.customView.PopupWindowShare;
 import com.minexu.yuetianhoteltraval.food.FoodDetailActivity;
 import com.minexu.yuetianhoteltraval.login.LoginActivity;
 import com.minexu.yuetianhoteltraval.onlinedata.XuUser;
@@ -26,7 +31,7 @@ import cn.bmob.v3.listener.UpdateListener;
  * Created by Administrator on 2017/3/17.
  */
 
-public class SpotDetailActivity extends Activity{
+public class SpotDetailActivity extends Activity implements View.OnClickListener{
     private Context mcontext;
     private String id;
     private TextView title;
@@ -38,6 +43,9 @@ public class SpotDetailActivity extends Activity{
     private ArrayList<String> list_collect;
     private MyUpload myUpload;
     private ImageView img;
+    private LinearLayout back_line;
+    private TextView img_share;
+    private PopupWindowShare mPopupWindows;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +68,10 @@ public class SpotDetailActivity extends Activity{
         context= (TextView) findViewById(R.id.spot_context);
         button_collect= (Button) findViewById(R.id.button_collect);
         img= (ImageView) findViewById(R.id.spot_img);
+        back_line= (LinearLayout) findViewById(R.id.detail_spot_back);
+        img_share= (TextView) findViewById(R.id.detail_spot_share);
+        back_line.setOnClickListener(this);
+        img_share.setOnClickListener(this);
         myUpload.download_asynchronous("yuetiantravel","listimg/"+id,img);
         button_collect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,5 +115,31 @@ public class SpotDetailActivity extends Activity{
     private void userrun() {
         Intent it=new Intent(SpotDetailActivity.this, LoginActivity.class);
         startActivity(it);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.detail_spot_back:SpotDetailActivity.this.finish();break;
+            case R.id.detail_spot_share: openpopupwindow();break;
+        }
+    }
+    private void openpopupwindow() {
+        WindowManager windowmanager=this.getWindowManager();
+        int height=windowmanager.getDefaultDisplay().getHeight();
+        WindowManager.LayoutParams params = this.getWindow().getAttributes();
+        params.alpha = 0.5f;
+        this.getWindow().setAttributes(params);
+        mPopupWindows = new PopupWindowShare(mcontext,height);
+        mPopupWindows.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                WindowManager.LayoutParams params = SpotDetailActivity.this.getWindow().getAttributes();
+                params.alpha = 1f;
+                SpotDetailActivity.this.getWindow().setAttributes(params);
+            }
+        });
+        //出问题了
+        mPopupWindows.showAtLocation(SpotDetailActivity.this.findViewById(R.id.main_content), Gravity.BOTTOM , 0, 0);
     }
 }

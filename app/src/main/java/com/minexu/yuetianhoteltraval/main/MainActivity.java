@@ -27,7 +27,7 @@ import cn.bmob.v3.listener.QueryListener;
 
 public class MainActivity extends Activity implements View.OnClickListener{
     private String TAG="MainActivity";
-    private Alldata alldata;
+    public Alldata alldata;
     private LinearLayout linearLayout_firstab;
     private LinearLayout linearLayout_travel;
     private LinearLayout linearLayout_food;
@@ -75,7 +75,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private void initFragment() {
         fragment_process=new FirstTabFragmentProcess();
         BmobQuery<Alldata> query = new BmobQuery<Alldata>();
-        query.getObject("d72519fa6e", new QueryListener<Alldata>() {
+        query.getObject("7c36329337", new QueryListener<Alldata>() {
 
             @Override
             public void done(Alldata object, BmobException e) {
@@ -120,6 +120,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
             case R.id.activity_main_firsttab:
                 initBottomView();
                 img1.setImageResource(R.mipmap.host_index_cate_icon_s);
+
                 ft=fm.beginTransaction();
                 tab_num=0;
                 if(fragment_firstab!=null)

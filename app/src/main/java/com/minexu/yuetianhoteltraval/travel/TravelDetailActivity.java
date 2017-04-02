@@ -4,19 +4,25 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.minexu.yuetianhoteltraval.R;
 import com.minexu.yuetianhoteltraval.Utils.MyUpload;
 import com.minexu.yuetianhoteltraval.Utils.T;
+import com.minexu.yuetianhoteltraval.customView.PopupWindowShare;
 import com.minexu.yuetianhoteltraval.food.RemarkAdapter;
 import com.minexu.yuetianhoteltraval.login.LoginActivity;
+import com.minexu.yuetianhoteltraval.main.SpotDetailActivity;
 import com.minexu.yuetianhoteltraval.onlinedata.Remakdata;
 import com.minexu.yuetianhoteltraval.onlinedata.Traveldata;
 import com.minexu.yuetianhoteltraval.onlinedata.XuUser;
@@ -34,7 +40,7 @@ import cn.bmob.v3.listener.UpdateListener;
  * Created by Administrator on 2017/3/17.
  */
 
-public class TravelDetailActivity extends Activity{
+public class TravelDetailActivity extends Activity implements View.OnClickListener{
     private TextView title;
     private TextView context;
     private String name;
@@ -51,6 +57,9 @@ public class TravelDetailActivity extends Activity{
     private ImageView img;
     private MyUpload myUpload;
     private TextView textView;
+    private LinearLayout back_line;
+    private TextView img_share;
+    private PopupWindowShare mPopupWindows;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,6 +110,10 @@ public class TravelDetailActivity extends Activity{
         LayoutInflater inflater=LayoutInflater.from(mcontext);
         View headview=inflater.inflate(R.layout.detail_head,null);
         View footview=inflater.inflate(R.layout.detail_foot,null);
+        back_line= (LinearLayout) findViewById(R.id.detail_spot_back);
+        img_share= (TextView) findViewById(R.id.detail_spot_share);
+        back_line.setOnClickListener(this);
+        img_share.setOnClickListener(this);
         img= (ImageView) headview.findViewById(R.id.detail_head_img);
         myUpload.download_asynchronous("yuetiantravel","listimg/"+id,img);
         title= (TextView) headview.findViewById(R.id.detail_head_title);
@@ -163,5 +176,31 @@ public class TravelDetailActivity extends Activity{
     private void userrun() {
         Intent it=new Intent(TravelDetailActivity.this, LoginActivity.class);
         startActivity(it);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.detail_spot_back:TravelDetailActivity.this.finish();break;
+            case R.id.detail_spot_share: openpopupwindow();break;
+        }
+    }
+    private void openpopupwindow() {
+        WindowManager windowmanager=this.getWindowManager();
+        int height=windowmanager.getDefaultDisplay().getHeight();
+        WindowManager.LayoutParams params = this.getWindow().getAttributes();
+        params.alpha = 0.5f;
+        this.getWindow().setAttributes(params);
+        mPopupWindows = new PopupWindowShare(mcontext,height);
+        mPopupWindows.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                WindowManager.LayoutParams params = TravelDetailActivity.this.getWindow().getAttributes();
+                params.alpha = 1f;
+                TravelDetailActivity.this.getWindow().setAttributes(params);
+            }
+        });
+        //出问题了
+        mPopupWindows.showAtLocation(TravelDetailActivity.this.findViewById(R.id.main_content), Gravity.BOTTOM , 0, 0);
     }
 }

@@ -11,6 +11,8 @@ import com.minexu.yuetianhoteltraval.R;
 import com.minexu.yuetianhoteltraval.Utils.SharePreferenceUtil;
 import com.minexu.yuetianhoteltraval.login.LoginActivity;
 
+import cn.bmob.v3.BmobUser;
+
 /**
  * Created by Administrator on 2017/3/18.
  */
@@ -36,6 +38,7 @@ public class SettingActivity extends Activity implements View.OnClickListener{
         switch (v.getId()){
             case R.id.mine_setting_logout:
                 SharePreferenceUtil.putSettingDataBoolean(mcontext,SharePreferenceUtil.AUTOLOGIN,false);
+                BmobUser.logOut();
                 Intent it=new Intent(SettingActivity.this, LoginActivity.class);startActivity(it);SettingActivity.this.finish();break;
         }
     }

@@ -6,6 +6,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="50dp"
+        android:elevation="6dp"
         android:background="@color/pink_red_toobar">
         <TextView
             android:layout_centerInParent="true"
@@ -15,83 +16,87 @@
             android:layout_gravity="center"
             android:theme="@style/title_font" />
     </RelativeLayout>
+
     <TextView
         android:id="@+id/mine_location"
         android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:gravity="center_vertical"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:text="我的位置"/>
+
+
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/pink_red_toobar"/>
+        android:layout_height="1px"
+        android:background="@color/gray"/>
+
         <TextView
             android:id="@+id/mine_weather"
             android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:gravity="center_vertical"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:text="天气查询"/>
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/pink_red_toobar"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray"/>
     <TextView
         android:id="@+id/mine_personal"
         android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:gravity="center_vertical"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:text="个人信息"/>
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/pink_red_toobar"/>
+        android:layout_height="1px"
+        android:background="@color/gray"/>
     <TextView
         android:id="@+id/mine_collect"
         android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:gravity="center_vertical"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:text="收藏"/>
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/pink_red_toobar"/>
+        android:layout_height="1px"
+        android:background="@color/gray"/>
     <TextView
         android:id="@+id/mine_change"
         android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:gravity="center_vertical"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:text="修改密码"/>
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/pink_red_toobar"/>
+        android:layout_height="1px"
+        android:background="@color/gray"/>
     <TextView
         android:id="@+id/mine_setting"
         android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:gravity="center_vertical"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:text="设置"/>
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/pink_red_toobar"/>
+        android:layout_height="1px"
+        android:background="@color/gray"/>
 
 </LinearLayout>
