@@ -24,6 +24,7 @@ public class MineFragment extends Fragment implements View.OnClickListener{
     private TextView text_collect;
     private TextView text_weather;
     private TextView text_location;
+    private TextView text_about;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,12 +35,14 @@ public class MineFragment extends Fragment implements View.OnClickListener{
         text_weather= (TextView) view.findViewById(R.id.mine_weather);
         text_collect= (TextView) view.findViewById(R.id.mine_collect);
         text_location= (TextView) view.findViewById(R.id.mine_location);
+        text_about= (TextView) view.findViewById(R.id.mine_about);
         text_changepassword.setOnClickListener(this);
         text_collect.setOnClickListener(this);
         text_personal.setOnClickListener(this);
         text_setting.setOnClickListener(this);
         text_weather.setOnClickListener(this);
         text_location.setOnClickListener(this);
+        text_about.setOnClickListener(this);
         return view;
     }
 
@@ -52,6 +55,7 @@ public class MineFragment extends Fragment implements View.OnClickListener{
             case R.id.mine_setting:Intent it3=new Intent(getActivity(),SettingActivity.class);startActivity(it3);break;
             case R.id.mine_weather:Intent it4=new Intent(getActivity(),WeatherActivity.class);startActivity(it4);break;
             case R.id.mine_location:Intent it5=new Intent(getActivity(),DingweiMap.class);startActivity(it5);break;
+            case R.id.mine_about:Intent it6=new Intent(getActivity(),AboutActivity.class);startActivity(it6);break;
         }
     }
 }

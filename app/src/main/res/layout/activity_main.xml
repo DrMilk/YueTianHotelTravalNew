@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
     <LinearLayout
         android:id="@+id/activity_main_bottom"
@@ -122,6 +123,17 @@
                 android:text="我"/>
         </LinearLayout>
     </LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/yuyin"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="70dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        app:backgroundTint="@color/pink_red_toobar"
+        android:src="@mipmap/micp" />
     <LinearLayout
         android:layout_above="@id/activity_main_bottom"
         android:id="@+id/activity_main_main"

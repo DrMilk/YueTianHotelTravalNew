@@ -38,4 +38,6 @@ dependencies {
     compile files('libs/AMap_Location_V3.3.0_20170118.jar')
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/AMap2DMap_4.2.0_AMapSearch_4.0.0_20170120.jar')
+    compile files('libs/Msc.jar')
+    compile files('libs/Sunflower.jar')
 }

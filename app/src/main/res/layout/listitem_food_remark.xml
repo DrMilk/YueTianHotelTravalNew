@@ -21,8 +21,12 @@
             android:text="2017.1.1"
             android:theme="@style/style_about"
             android:textSize="16sp"
+            android:textColor="@color/weather_title"
             android:textStyle="italic"/>
         <TextView
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="8dp"
             android:id="@+id/list_food_text"
             android:ellipsize="end"
             android:layout_width="match_parent"
@@ -42,7 +46,7 @@
             android:gravity="right"
             android:text="25614464d"
             android:theme="@style/style_about"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="italic"/>
     </LinearLayout>
 </LinearLayout>

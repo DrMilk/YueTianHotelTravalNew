@@ -98,5 +98,18 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/gray"/>
+    <TextView
+        android:id="@+id/mine_about"
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:text="关于"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray"/>
 
 </LinearLayout>

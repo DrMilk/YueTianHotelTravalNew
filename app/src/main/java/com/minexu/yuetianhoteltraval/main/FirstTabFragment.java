@@ -174,10 +174,11 @@ public class FirstTabFragment extends Fragment{
                                 bundle.putString("id",spotdata.getObjectId());
                                 it.putExtras(bundle);
                                 getActivity().startActivity(it);
+                            }else{
+                                L.i(TAG,"出现严重错误！");
                             }
                         }
                     });
-                    L.i(TAG,"出现严重错误！");
                 }
                  //   updataviewlimit(query);
                     return false;
